@@ -45,7 +45,7 @@
 
     // Hint! This is where you should post messages to the web worker and
     // receive messages from the web worker.
-    myWorker.postmesssage({imageData: imageData, type: type});
+    myWorker.postMesssage({imageData: imageData, type: type});
     console.log("message sent to worker");
     myWorker.onmessage = function(e) {
       imageData = e.data.imageData;
