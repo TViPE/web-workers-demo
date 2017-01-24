@@ -45,12 +45,26 @@
 
     // Hint! This is where you should post messages to the web worker and
     // receive messages from the web worker.
-    myWorker.postMesssage({imageData: imageData, type: type});
+    myWorker.postMesssage({'imageData': imageData, 'type': type});
     console.log("message sent to worker");
+
     myWorker.onmessage = function(e) {
       imageData = e.data.imageData;
       console.log("Message received from worker");
+
+      toggleButtonsAbledness();
+      var image = e.data;
+      if(image) return ctx.putImageData(e.data,0,0);
+      console.log("No manipulated image returned.")
     }
+
+    mageWorker.onerror = function(error) {
+      function WorkerException(message) {
+        this.name = "WorkerException";
+        this.message = message;
+      };
+      throw new WorkerException('Worker error.');
+    };
     /*
     length = imageData.data.length / 4;
     for (i = j = 0, ref = length; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
@@ -65,8 +79,6 @@
       imageData.data[i * 4 + 3] = pixel[3];
     }
     */
-    toggleButtonsAbledness();
-    return ctx.putImageData(imageData, 0, 0);
   };
 
   function revertImage() {
