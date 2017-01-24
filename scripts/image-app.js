@@ -35,7 +35,7 @@
   }
 
   //worker
-  var myWorker = new Worker("scripts/worker.js");
+  var imageWorker = new Worker("scripts/worker.js");
 
   
   function manipulateImage(type) {
